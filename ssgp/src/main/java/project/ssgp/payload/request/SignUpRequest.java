@@ -1,13 +1,15 @@
-package project.ssgp.payload.user;
+package project.ssgp.payload.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignInRequest {
+public class SignUpRequest {
 
     private String id;
 
