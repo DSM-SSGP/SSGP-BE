@@ -1,4 +1,4 @@
-package project.ssgp.entity.product;
+package project.ssgp.entity.notice;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.mongodb.core.mapping.Document;
+import project.ssgp.entity.product.BrandEnum;
 import project.ssgp.entity.user.User;
 
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
-@Document("tbl_notice")
+@Document("notice")
 @Builder
 @Getter
 @NoArgsConstructor
