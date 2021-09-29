@@ -31,8 +31,7 @@ public class TokenHandler implements HandlerInterceptor {
 
         String token = jwtProvider.resolveToken(request);
         if(jwtProvider.validToken(token)){
-
-                userRepository.findById(jwtProvider.parseToken(token))
+            userRepository.findById(jwtProvider.parseToken(token))
                         .ifPresent(user -> SecurityContextHolder.getContext().setAuthentication(new UserAuthentication(user)));
 
         }
