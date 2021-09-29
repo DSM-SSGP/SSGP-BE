@@ -8,8 +8,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import project.ssgp.entity.product.Product;
 import project.ssgp.entity.user.User;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
 
 @Document("tbl_like")
 @IdClass(LikeKey.class)
@@ -20,9 +22,11 @@ import javax.persistence.IdClass;
 public class Like {
 
     @Id
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private User user;
 
     @Id
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Product product;
 
 }
