@@ -22,11 +22,11 @@ public class JWTProvider {
         JwtBuilder builder = Jwts.builder()
                 .setId(UUID.randomUUID().toString())
                 .setIssuedAt(new Date(nowMillis))
-                .setHeaderParam("type", type)
                 .setSubject(data.toString())
                 .claim("userType", userType)
+                .claim("type", type)
                 .setExpiration(new Date(nowMillis + expire))
-                .signWith(SignatureAlgorithm.HS256, SECURITY_KEY.getBytes());
+                .signWith(SignatureAlgorithm.HS256, SECURITY_KEY);
 
         return builder.compact();
     }
@@ -42,19 +42,22 @@ public class JWTProvider {
     public String parseToken(String token) throws ExpiredJwtException {
         String result;
         try {
-            result = Jwts.parser().setSigningKey(SECURITY_KEY.getBytes()).parseClaimsJws(token).getBody().getSubject();
-            if(!Jwts.parser().setSigningKey(SECURITY_KEY.getBytes()).parseClaimsJws(token).getBody().get("type").equals("access_token"))
+            Claims body = Jwts.parser().setSigningKey(SECURITY_KEY).parseClaimsJws(token).getBody();
+            result = body.getSubject();
+            if(!body.get("type").equals("access_token"))
                 throw new InvalidTokenException();
         } catch (ExpiredJwtException e) {
             throw new ExpiredTokenException();
         } catch (MalformedJwtException e) {
             throw new InvalidTokenException();
         }
-        return token;
+        return result;
     }
 
     public String resolveToken(HttpServletRequest httpServletRequest) {
-        return httpServletRequest.getHeader("Authorization");
+        String token = httpServletRequest.getHeader("Authorization");
+        if (token != null) return token.substring(7);
+        return null;
     }
 
     public boolean validToken(String token) {
@@ -63,6 +66,7 @@ public class JWTProvider {
                     .parseClaimsJws(token).getBody().getSubject();
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
