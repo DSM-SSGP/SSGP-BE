@@ -73,8 +73,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<ProductResponse> getLikeList(User user) {
+    public List<ProductResponse> getLikeList() {
 
+        User user = authenticationFacade.getUser();
         List<Like> likes = likeRepository.findAllByUser(user);
 
         List<ProductResponse> productResponses = new ArrayList<>();

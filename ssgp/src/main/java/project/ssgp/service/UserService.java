@@ -17,6 +17,6 @@ public interface UserService {
 
     void updatePassword(UpdateInformationRequest updateInformationRequest);
 
-    List<ProductResponse> getLikeList(User user);
+    List<ProductResponse> getLikeList();
 
 }
