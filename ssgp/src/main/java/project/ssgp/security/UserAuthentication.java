@@ -26,12 +26,12 @@ public class UserAuthentication implements Authentication {
 
     @Override
     public Object getDetails() {
-        return null;
+        return user;
     }
 
     @Override
     public Object getPrincipal() {
-        return user;
+        return user.getId();
     }
 
     @Override
@@ -46,6 +46,6 @@ public class UserAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return null;
+        return user.getId();
     }
 }
