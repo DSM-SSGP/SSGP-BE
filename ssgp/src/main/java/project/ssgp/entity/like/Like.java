@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 
-@Document("tbl_like")
+@Document("like")
 @IdClass(LikeKey.class)
 @Builder
 @Getter
