@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
 
-@Document("tbl_user")
+@Document("user")
 @Builder
 @Getter
 @NoArgsConstructor
@@ -19,5 +19,10 @@ public class User {
     private String id;
 
     private String password;
+
+    public User updatePassword(String password) {
+        this.password = password;
+        return this;
+    }
 
 }
