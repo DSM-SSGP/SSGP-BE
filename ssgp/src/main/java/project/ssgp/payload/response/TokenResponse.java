@@ -1,4 +1,4 @@
-package project.ssgp.payload.user;
+package project.ssgp.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
