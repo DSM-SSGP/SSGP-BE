@@ -1,12 +1,14 @@
 package project.ssgp.security;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import project.ssgp.entity.user.User;
 
 import java.util.Collection;
 
+@Getter
 @AllArgsConstructor
 public class UserAuthentication implements Authentication {
 
