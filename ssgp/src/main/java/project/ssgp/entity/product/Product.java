@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import java.util.List;
 
-@Document("tbl_user")
+@Document("product")
 @Builder
 @Getter
 @NoArgsConstructor
@@ -21,5 +22,7 @@ public class Product {
     private String name;
 
     private String imagePath;
+
+    private List<Selling> sellings;
     
 }
