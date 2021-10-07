@@ -1,4 +1,4 @@
-package project.ssgp.entity.product;
+package project.ssgp.product.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import java.util.HashSet;
 import java.util.List;
 
 @Document("product")
@@ -23,6 +24,16 @@ public class Product {
 
     private String imagePath;
 
+    private HashSet<String> likeUserIds;
+
     private List<Selling> sellings;
+
+    public int getLikeCount() {
+        return likeUserIds.size();
+    }
+
+    public boolean isProductEnable() {
+        return sellings.size() != 0;
+    }
     
 }
