@@ -1,4 +1,4 @@
-package project.ssgp.entity.product;
+package project.ssgp.product.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package project.ssgp.entity.notice;
+package project.ssgp.notice.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.mongodb.core.mapping.Document;
-import project.ssgp.entity.product.BrandEnum;
-import project.ssgp.entity.user.User;
+import project.ssgp.product.entity.BrandEnum;
+import project.ssgp.user.entity.User;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
