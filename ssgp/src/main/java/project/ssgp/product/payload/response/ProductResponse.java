@@ -1,9 +1,11 @@
-package project.ssgp.payload.response;
+package project.ssgp.product.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @Builder
@@ -15,11 +17,13 @@ public class ProductResponse {
 
     private String name;
 
-    private String brand;
+    private List<String> brands;
 
-    private String selling;
+    private List<SellingResponse> selling;
 
     private int price;
+
+    private int likeCount;
 
     private String imagePath;
 
