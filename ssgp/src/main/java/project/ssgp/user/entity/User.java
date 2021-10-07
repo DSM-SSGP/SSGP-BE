@@ -1,4 +1,4 @@
-package project.ssgp.entity.user;
+package project.ssgp.user.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +19,8 @@ public class User {
     private String id;
 
     private String password;
+
+    private boolean notice;
 
     public User updatePassword(String password) {
         this.password = password;
