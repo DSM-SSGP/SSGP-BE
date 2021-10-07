@@ -1,15 +1,13 @@
-package project.ssgp.controller;
+package project.ssgp.user.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import project.ssgp.entity.user.User;
-import project.ssgp.payload.request.SignInRequest;
-import project.ssgp.payload.request.SignUpRequest;
-import project.ssgp.payload.request.UpdateInformationRequest;
-import project.ssgp.payload.response.ProductResponse;
-import project.ssgp.payload.response.TokenResponse;
-import project.ssgp.service.UserService;
+import project.ssgp.user.payload.request.SignInRequest;
+import project.ssgp.user.payload.request.SignUpRequest;
+import project.ssgp.user.payload.request.UpdateInformationRequest;
+import project.ssgp.product.payload.response.ProductResponse;
+import project.ssgp.user.payload.response.TokenResponse;
+import project.ssgp.user.service.UserService;
 
 import java.util.List;
 
