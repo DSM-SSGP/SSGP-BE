@@ -5,8 +5,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import project.ssgp.entity.user.User;
-import project.ssgp.repository.UserRepository;
+import project.ssgp.user.entity.User;
+import project.ssgp.user.repository.UserRepository;
 
 @RequiredArgsConstructor
 @Component
