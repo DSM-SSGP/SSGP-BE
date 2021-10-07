@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import project.ssgp.repository.UserRepository;
+import project.ssgp.user.repository.UserRepository;
 import project.ssgp.util.JWTProvider;
 
 import javax.servlet.http.HttpServletRequest;
