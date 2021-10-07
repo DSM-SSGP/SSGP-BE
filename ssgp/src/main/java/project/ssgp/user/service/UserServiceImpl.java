@@ -1,21 +1,20 @@
-package project.ssgp.service;
+package project.ssgp.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import project.ssgp.entity.like.Like;
-import project.ssgp.entity.product.Product;
-import project.ssgp.entity.product.Selling;
-import project.ssgp.payload.response.ProductResponse;
-import project.ssgp.repository.LikeRepository;
-import project.ssgp.entity.user.User;
+import project.ssgp.product.entity.Product;
+import project.ssgp.product.entity.Selling;
+import project.ssgp.product.payload.response.ProductResponse;
+import project.ssgp.user.entity.User;
 import project.ssgp.exception.UserAlreadyExistsException;
 import project.ssgp.exception.UserNotFoundException;
-import project.ssgp.payload.request.SignInRequest;
-import project.ssgp.payload.request.SignUpRequest;
-import project.ssgp.payload.request.UpdateInformationRequest;
-import project.ssgp.payload.response.TokenResponse;
-import project.ssgp.repository.UserRepository;
+import project.ssgp.user.payload.request.SignInRequest;
+import project.ssgp.user.payload.request.SignUpRequest;
+import project.ssgp.user.payload.request.UpdateInformationRequest;
+import project.ssgp.user.payload.response.TokenResponse;
+import project.ssgp.product.repository.ProductRepository;
+import project.ssgp.user.repository.UserRepository;
 import project.ssgp.security.AuthenticationFacade;
 import project.ssgp.util.JWTProvider;
 
@@ -27,7 +26,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final LikeRepository likeRepository;
+    private final ProductRepository productRepository;
     private final JWTProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
@@ -76,12 +75,11 @@ public class UserServiceImpl implements UserService {
     public List<ProductResponse> getLikeList() {
 
         User user = authenticationFacade.getUser();
-        List<Like> likes = likeRepository.findAllByUser(user);
+        List<Product> products = productRepository.findAllByLikeUserIdsContaining(user.getId());
 
         List<ProductResponse> productResponses = new ArrayList<>();
 
-        for(Like like : likes){
-            Product product = like.getProduct();
+        for(Product product : products){
             Integer price = product.getSellings().stream()
                     .map(Selling::getPrice)
                     .min(Integer::compareTo)
@@ -92,6 +90,7 @@ public class UserServiceImpl implements UserService {
                             .name(product.getName())
                             .imagePath(product.getImagePath())
                             .price(price)
+                            .likeCount(product.getLikeCount())
                             .build()
             );
         }
