@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import project.ssgp.entity.user.User;
+import project.ssgp.user.entity.User;
 
 import java.util.Collection;
 
