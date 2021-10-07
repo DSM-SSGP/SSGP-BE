@@ -1,4 +1,4 @@
-package project.ssgp.entity.product;
+package project.ssgp.product.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class Selling {
 
     private String content;
+
+    private int sellingPrice;
 
     private int price;
 
