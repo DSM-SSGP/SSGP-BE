@@ -18,4 +18,8 @@ public interface ProductRepository extends MongoRepository<Product, Integer> {
 
     List<Product> findAllByProductEnableTrue();
 
+    List<Product> findAllByName(String productName);
+
+    boolean existsByLikeUserIds(Product product, User user);
+
 }
