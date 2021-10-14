@@ -2,16 +2,22 @@ package project.ssgp.product.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import project.ssgp.exception.UserNotFoundException;
 import project.ssgp.product.entity.BrandEnum;
 import project.ssgp.product.entity.Product;
 import project.ssgp.product.entity.Selling;
 import project.ssgp.exception.ProductNotFoundException;
+import project.ssgp.product.payload.request.LikeRequest;
+import project.ssgp.product.payload.response.ApplicationListResponse;
 import project.ssgp.product.payload.response.ProductResponse;
 import project.ssgp.product.payload.response.SellingResponse;
 import project.ssgp.product.repository.ProductRepository;
+import project.ssgp.user.entity.User;
+import project.ssgp.user.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +26,26 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final UserRepository userRepository;
+
+    @Override
+    public void LikeProduct(LikeRequest likeRequest) {
+
+        User user = userRepository.findById(likeRequest.getUserId())
+                .orElseThrow(UserNotFoundException::new);
+
+        Product product = productRepository.findById(likeRequest.getProductId())
+                .orElseThrow(ProductNotFoundException::new);
+
+        boolean isLiked = productRepository.existsByLikeUserIds(product, user);
+
+        if (isLiked) {
+            product.removeLikeUser(user.getId());
+        } else {
+            product.addLikeUser(user.getId());
+        }
+        productRepository.save(product);
+    }
 
     @Override
     public ProductResponse getProduct(Integer productId) {
@@ -67,8 +93,34 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponse> getProductFilterByBrandList() {
-        return null;
+    public ApplicationListResponse searchProduct(String searchWord) {
+
+        List<Product> productList = productRepository.findAllByName(searchWord);
+
+        List<ProductResponse> productResponses = new ArrayList<>();
+
+        for (Product product : productList) {
+            Integer price = product.getSellings().stream()
+                    .map(Selling::getPrice)
+                    .min(Integer::compareTo)
+                    .orElse(0);
+            List<String> brands = product.getSellings().stream()
+                    .map(selling -> selling.getBrand().getName())
+                    .collect(Collectors.toList());
+            productResponses.add(
+                    ProductResponse.builder()
+                            .ProductId(product.getId())
+                            .name(product.getName())
+                            .price(price)
+                            .brands(brands)
+                            .imagePath(product.getImagePath())
+                            .build()
+            );
+        }
+
+        return ApplicationListResponse.builder()
+                .applicationResponses(productResponses)
+                .build();
     }
 
     private List<ProductResponse> getProductList(List<Product> productList) {
