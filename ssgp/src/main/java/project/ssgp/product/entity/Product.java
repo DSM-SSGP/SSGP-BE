@@ -35,5 +35,13 @@ public class Product {
     public boolean isProductEnable() {
         return sellings.size() != 0;
     }
+
+    public void addLikeUser(String userId) {
+        this.likeUserIds.add(userId);
+    }
+
+    public void removeLikeUser(String userId) {
+        this.likeUserIds.remove(userId);
+    }
     
 }
