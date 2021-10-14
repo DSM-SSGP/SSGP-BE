@@ -1,12 +1,15 @@
 package project.ssgp.product.service;
 
 import project.ssgp.product.entity.BrandEnum;
+import project.ssgp.product.payload.request.LikeRequest;
 import project.ssgp.product.payload.response.ApplicationListResponse;
 import project.ssgp.product.payload.response.ProductResponse;
 
 import java.util.List;
 
 public interface ProductService {
+
+    void LikeProduct(LikeRequest likeRequest);
 
     ProductResponse getProduct(Integer productId);
 
@@ -19,8 +22,6 @@ public interface ProductService {
     List<ProductResponse> getRecommendProductList();
 
     List<ProductResponse> getLowPriceProductList();
-
-    List<ProductResponse> getProductFilterByBrandList();
 
     ApplicationListResponse searchProduct(String searchWord);
 
