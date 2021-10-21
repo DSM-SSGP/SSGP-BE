@@ -2,24 +2,24 @@ package project.ssgp.product.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import project.ssgp.product.entity.Product;
-import project.ssgp.user.entity.User;
+import project.ssgp.product.entity.ProductEntity;
+import project.ssgp.user.entity.UserEntity;
 
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends MongoRepository<Product, Integer> {
+public interface ProductRepository extends MongoRepository<ProductEntity, Integer> {
 
-    List<Product> findAllByOrderByName();
+    List<ProductEntity> findAllByOrderByName();
 
-    List<Product> findAllByOrderByLikeCountDesc();
+    List<ProductEntity> findAllByOrderByLikeCountDesc();
 
-    List<Product> findAllByLikeUserIdsContaining(String userId);
+    List<ProductEntity> findAllByLikeUserIdsContaining(String userId);
 
-    List<Product> findAllByProductEnableTrue();
+    List<ProductEntity> findAllByProductEnableTrue();
 
-    List<Product> findAllByName(String productName);
+    List<ProductEntity> findAllByName(String productName);
 
-    boolean existsByLikeUserIds(Product product, User user);
+    boolean existsByLikeUserIds(ProductEntity product, UserEntity user);
 
 }
