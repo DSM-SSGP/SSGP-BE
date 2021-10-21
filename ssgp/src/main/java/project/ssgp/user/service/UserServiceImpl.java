@@ -3,10 +3,10 @@ package project.ssgp.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import project.ssgp.product.entity.Product;
+import project.ssgp.product.entity.ProductEntity;
 import project.ssgp.product.entity.Selling;
 import project.ssgp.product.payload.response.ProductResponse;
-import project.ssgp.user.entity.User;
+import project.ssgp.user.entity.UserEntity;
 import project.ssgp.exception.UserAlreadyExistsException;
 import project.ssgp.exception.UserNotFoundException;
 import project.ssgp.user.payload.request.SignInRequest;
@@ -39,8 +39,9 @@ public class UserServiceImpl implements UserService {
                     throw new UserAlreadyExistsException();
                 });
 
+
         userRepository.save(
-                User.builder()
+                UserEntity.builder()
                         .id(signUpRequest.getId())
                         .password(passwordEncoder.encode(signUpRequest.getPassword()))
                         .build()
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePassword(UpdateInformationRequest updateInformationRequest) {
 
-        User user = authenticationFacade.getUser();
+        UserEntity user = authenticationFacade.getUser();
         String updatedPassword = updateInformationRequest.getPassword();
 
         userRepository.save(user.updatePassword(updatedPassword))
@@ -74,12 +75,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<ProductResponse> getLikeList() {
 
-        User user = authenticationFacade.getUser();
-        List<Product> products = productRepository.findAllByLikeUserIdsContaining(user.getId());
+        UserEntity user = authenticationFacade.getUser();
+        List<ProductEntity> products = productRepository.findAllByLikeUserIdsContaining(user.getId());
 
         List<ProductResponse> productResponses = new ArrayList<>();
 
-        for(Product product : products){
+        for(ProductEntity product : products){
             Integer price = product.getSellings().stream()
                     .map(Selling::getPrice)
                     .min(Integer::compareTo)
