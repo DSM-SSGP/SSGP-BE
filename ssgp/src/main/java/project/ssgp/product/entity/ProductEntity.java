@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class ProductEntity {
 
     @Id
     private int id;
