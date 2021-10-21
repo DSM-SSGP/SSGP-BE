@@ -1,36 +1,31 @@
-package project.ssgp.notice.entity;
+package project.ssgp.notification.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.mongodb.core.mapping.Document;
-import project.ssgp.product.entity.BrandEnum;
-import project.ssgp.user.entity.User;
+import project.ssgp.product.entity.Selling;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import java.time.LocalDate;
+import java.util.List;
 
-@Document("notice")
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notice {
+public class NotificationEntity {
 
     @Id
     private int id;
 
-    @ManyToOne
-    @Column(name = "user_id")
-    private User user;
+    private String title;
 
-    private String content;
+    private String message;
 
-    private BrandEnum brand;
+    private List<Selling> sellings;
 
     @CreationTimestamp
     @Column(name = "create_at")
