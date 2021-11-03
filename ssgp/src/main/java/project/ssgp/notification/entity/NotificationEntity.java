@@ -5,13 +5,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.mongodb.core.mapping.Document;
 import project.ssgp.product.entity.Selling;
 
-import javax.persistence.Column;
 import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.List;
 
+@Document("notification")
 @Builder
 @Getter
 @NoArgsConstructor
@@ -28,7 +29,6 @@ public class NotificationEntity {
     private List<Selling> sellings;
 
     @CreationTimestamp
-    @Column(name = "create_at")
     private LocalDate date;
 
 }
