@@ -55,7 +55,7 @@ public class VisionServiceImpl implements VisionService {
     private Response<CategorySearchResponse> sendMapResponse(String x, String y) {
 
         return connection
-                .mapApi(authorizationKey, "CS2", x, y, 2000)
+                .visionApi(authorizationKey, "CS2", x, y, 2000)
                 .execute();
 
     }
