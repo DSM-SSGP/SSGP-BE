@@ -2,6 +2,8 @@ package project.ssgp.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import project.ssgp.notification.payload.request.FcmRequest;
+import project.ssgp.notification.service.NotificationService;
 import project.ssgp.user.payload.request.SignInRequest;
 import project.ssgp.user.payload.request.SignUpRequest;
 import project.ssgp.user.payload.request.UpdateInformationRequest;
@@ -16,6 +18,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final NotificationService notificationService;
 
     @PostMapping("/user")
     public void signUp(@RequestBody SignUpRequest signUpRequest) {
@@ -31,16 +34,21 @@ public class UserController {
 
     }
 
-    @PatchMapping("/user/password")
+    @PatchMapping("/{userId}/password")
     public void updatePassword(@RequestBody UpdateInformationRequest updateInformationRequest) {
 
         userService.updatePassword(updateInformationRequest);
 
     }
 
-    @GetMapping("/user/likelist")
+    @GetMapping("/{userId}/likelist")
     public List<ProductResponse> getLikeList() {
         return userService.getLikeList();
+    }
+
+    @PatchMapping("/{userId}")
+    public void noticeSwitch(@RequestBody FcmRequest fcmRequest) {
+        notificationService.noticeSwitch(fcmRequest);
     }
 
 }
