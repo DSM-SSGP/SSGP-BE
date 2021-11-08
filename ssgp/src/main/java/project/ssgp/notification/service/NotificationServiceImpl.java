@@ -13,7 +13,6 @@ import project.ssgp.exception.UserNotFoundException;
 import project.ssgp.notification.entity.NotificationEntity;
 import project.ssgp.notification.payload.request.FcmRequest;
 import project.ssgp.notification.payload.response.NotificationResponse;
-import project.ssgp.notification.repository.NotificationRepository;
 import project.ssgp.security.AuthenticationFacade;
 import project.ssgp.user.entity.UserEntity;
 import project.ssgp.user.repository.UserRepository;
@@ -30,7 +29,6 @@ import java.util.stream.Collectors;
 public class NotificationServiceImpl implements NotificationService {
 
     private final UserRepository userRepository;
-    private final NotificationRepository notificationRepository;
     private static final Logger logger = LoggerFactory.getLogger(NotificationServiceImpl.class);
     private static final String FIREBASE_CONFIG_PATH = "ssgp-firebase-adminsdk.json";
 
@@ -106,7 +104,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         UserEntity user = authenticationFacade.getUser();
 
-        List<NotificationEntity> notificationList = notificationRepository.findByUser(user.getId());
+        List<NotificationEntity> notificationList = user.getNotifications();
 
         List<NotificationResponse> notificationResponses = new ArrayList<>();
 
